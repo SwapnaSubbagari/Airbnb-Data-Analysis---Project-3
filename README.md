@@ -1,6 +1,6 @@
 # Airbnb Preferences in Major Cities
-<br>
-## Teammates <br>
+
+## Teammates 
 #### [Yawavi Koudjonou]( https://github.com/yawavi92)
 #### [Ling Lu](https://github.com/LingLv-git)
 #### [Raheem Paxton](https://github.com/rjpaxtondata)
