@@ -24,7 +24,7 @@ For the proposed project, we will be using the following software: Python, HTML,
 
 ## Dataset Variables<br>
 
-The dataset consist of the following variables. <br>
+The dataset consist of the following variables. 
 
 ###id: Unique Listing ID<br>
 ###name: Name of Listing<br>
