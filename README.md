@@ -26,21 +26,21 @@ For the proposed project, we will be using the following software: Python, HTML,
 
 The dataset consist of the following variables. 
 
-###id: Unique Listing ID<br>
-###name: Name of Listing<br>
-###host_id: Unique host ID<br>
-###host_name: Name of host<br>
-###neighborhood_group: Group in which the neighborhood lies<br>
-###neighborhood: name of neighborhood<br>
-###latitude: Latitude of listing<br>
-###longitude: Longitude of listing<br>
-###room_type: room type<br>
-###price: price of listing per night<br>
-###minimum_nights: Minimum number of nights required to book<br>
-###number_of_reviews: Total number of reviews on listing<br>
-###last_review: Date on which listing received its last review<br>
-###reviews_per_month: Average reviews pr month on listing<br>
-###calculated_host_listings_count: Total number of listings by host<br>
+  *id: Unique Listing ID<br>
+  *name: Name of Listing<br>
+  *host_id: Unique host ID<br>
+  *host_name: Name of host<br>
+  *neighborhood_group: Group in which the neighborhood lies<br>
+  *neighborhood: name of neighborhood<br>
+  *latitude: Latitude of listing<br>
+  *longitude: Longitude of listing<br>
+  *room_type: room type<br>
+  *price: price of listing per night<br>
+  *minimum_nights: Minimum number of nights required to book<br>
+  *number_of_reviews: Total number of reviews on listing<br>
+  *last_review: Date on which listing received its last review<br>
+  *reviews_per_month: Average reviews pr month on listing<br>
+  *calculated_host_listings_count: Total number of listings by host<br>
 <br>
 ##Data Manipulation <br>
 ## Website with Visualization <br>
