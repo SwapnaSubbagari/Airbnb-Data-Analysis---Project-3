@@ -41,7 +41,7 @@ The dataset consist of the following variables.
 ###last_review: Date on which listing received its last review<br>
 ###reviews_per_month: Average reviews pr month on listing<br>
 ###calculated_host_listings_count: Total number of listings by host<br>
-
+<br>
 ##Data Manipulation <br>
 ## Website with Visualization <br>
 ##Characterization of visualization <br>
