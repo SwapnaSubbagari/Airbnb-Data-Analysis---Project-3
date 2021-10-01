@@ -6,6 +6,7 @@
 #### [Raheem Paxton](https://github.com/rjpaxtondata)
 #### [Swapna Subbagari]( https://github.com/SwapnaSubbagari)
 <br>
+
 ## Background 
 Since its inception in 2008, Airbnb has disrupted the travel industry. Today tourists have begun to prefer accommodations that resemble their own home (e.g., multiple bedrooms, stove, grill, and private parking). In most cases, these locations are preferred over that of a traditional hotel.
 
