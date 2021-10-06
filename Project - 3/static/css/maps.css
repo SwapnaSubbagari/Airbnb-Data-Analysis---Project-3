@@ -1,0 +1,14 @@
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+
+#map-id {
+    width: 800px;
+    height: 600px;
+    padding: 0;
+    margin: 0;
+}
