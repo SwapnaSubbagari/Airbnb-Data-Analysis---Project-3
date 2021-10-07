@@ -43,23 +43,26 @@ d3.json(url).then(function(response) {
   // Create a new marker cluster group.
   var markers = L.markerClusterGroup();
 
+  var heatArray = []
   // Loop through the data.
   for (var i = 0; i < response.length; i++) {
 
     // Set the data location property to a variable.
-    var location = response[i].location;
-    location = [response[i].latitude, response[i].longitude]
-    // Check for the location property.
-    if (location) {
+    var location = [response[i].latitude, response[i].longitude]
+     
+    heatArray.push([location[0], location[1], response[i].price]);
 
-      // Add a new marker to the cluster group, and bind a popup.
-      markers.addLayer(L.marker([location[0], location[1]])
-        .bindPopup(response[i].host_name));
-    }
+    // Add a new marker to the cluster group, and bind a popup.
+    markers.addLayer(L.marker([location[0], location[1]])
+      .bindPopup(`${response[i].host_name}<br/>$${response[i].price}`));
+     
 
   }
 
-  // Add our marker cluster layer to the map.
+  var heat = L.heatLayer(heatArray, {
+    radius: 20,
+    blur: 35
+  }).addTo(myMap);
   myMap.addLayer(markers);
 
 });
