@@ -1,6 +1,7 @@
 # import necessary libraries
 import os
 from flask import (
+    render_template,
     Flask)
 from sqlalchemy import create_engine
 
@@ -15,8 +16,34 @@ app = Flask(__name__)
 
 from flask_sqlalchemy import SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///save_pandas.db"
-
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+@app.route("/", methods=["GET"])
+def root():
+    return render_template("home.html")
+
+@app.route("/index", methods=["GET"])
+def index():
+    return render_template("index.html")
+
+@app.route("/maps", methods=["GET"])
+def map():
+    return render_template("maps.html")
+
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html")
+
+@app.route("/dashboard", methods=["GET"])
+def dashboard():
+    return render_template("dashboard.html")
+# @app.route("/static/css/style.css", methods=["GET"])
+# def css_resources():
+#     return render_template("static/css/style.css")    
+
+# @app.route("/static/js/logic.js", methods=["GET"])
+# def js_resources():
+#     return render_template("static/js/logic.js")
 
 # Query the database and send the jsonified results
 @app.route("/query", methods=["GET"])
@@ -29,14 +56,12 @@ def query():
     columns = []
     with engine.connect() as con:
 
-        rs = con.execute('select * from Airbnb_Analysis limit 100')
+        rs = con.execute('select * from Airbnb_Analysis')
         for col in rs.keys():
             columns.append(col)
             
         for row in rs:
-            print(row)
             results.append(dict(zip(columns, row)))
-     # results = db.session.query(Pet.name, Pet.lat, Pet.lon).all()
     
     return {
         'data': results
