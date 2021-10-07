@@ -42,7 +42,7 @@ def dashboard():
 #     return render_template("static/css/style.css")    
 
 # @app.route("/static/js/logic.js", methods=["GET"])
-# def js_resources():
+# def js_resources():p
 #     return render_template("static/js/logic.js")
 
 # Query the database and send the jsonified results

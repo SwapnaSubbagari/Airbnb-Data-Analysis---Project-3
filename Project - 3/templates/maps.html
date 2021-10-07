@@ -1,34 +1,47 @@
-{% extends "base.html" %}
-{% set active_page = "Maps" %}
-{% block content %}
-     
-    <!-- Leaflet JavaScript code -->
-    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-    crossorigin=""></script>
-    
-    <!-- D3 library -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+{% extends "base.html" %} {% set active_page = "Maps" %} {% block content %}
 
-    <!-- Marker cluster JavaScript code -->
-    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
-    <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
+<!-- Leaflet JavaScript code -->
+<script
+  src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+  crossorigin=""
+></script>
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin=""/>
+<!-- D3 library -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
-    <!-- Marker cluster CSS -->
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+<!-- Marker cluster JavaScript code -->
+<script
+  type="text/javascript"
+  src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"
+></script>
+<script type="text/javascript" src="static/js/leaflet-heat.js"></script>
 
-    <!-- Our CSS -->
-    <link rel="stylesheet" type="text/css" href="static/css/maps.css">
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+  integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+  crossorigin=""
+/>
 
-    <div id="map" ></div>
+<!-- Marker cluster CSS -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css"
+/>
 
-    <!-- Our JavaScript -->
-    <script type="text/javascript" src="static/js/logic.js"></script>
+<!-- Our CSS -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+<div id="map"></div>
+
+<!-- Our JavaScript -->
+<script type="text/javascript" src="static/js/logic.js"></script>
 
 {% endblock %}
