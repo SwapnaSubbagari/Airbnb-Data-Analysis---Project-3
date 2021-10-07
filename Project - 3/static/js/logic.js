@@ -1,68 +1,62 @@
 // Creating the map object
-var myMap = L.map("map", {
-  // center: [40.7, -73.95],
-  center: [19.41577, -154.96278],
-
-  zoom: 11
+const myMap = L.map('map', {
+  // center: [19.41577, -154.96278],
+  center: [37.757815, -122.5076401],
+  zoom: 10,
 });
 
 // Adding the tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(myMap);
 
 // Store the API query variables.
 // For docs, refer to https://dev.socrata.com/docs/queries/where.html.
 // And, refer to https://dev.socrata.com/foundry/data.cityofnewyork.us/erm2-nwe9.
-var baseURL = "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?";
-var date = "$where=created_date between'2016-01-01T00:00:00' and '2017-01-01T00:00:00'";
-var complaint = "&complaint_type=Rodent";
-var limit = "&$limit=10000";
+const baseURL = 'https://data.cityofnewyork.us/resource/fhrw-4uyv.json?';
+const date = "$where=created_date between'2016-01-01T00:00:00' and '2017-01-01T00:00:00'";
+const complaint = '&complaint_type=Rodent';
+const limit = '&$limit=10000';
 
 // Assemble the API query URL.
-var url = baseURL + date + complaint + limit;
-url = 'http://localhost:5000/query'
+let url = baseURL + date + complaint + limit;
+url = '/query';
 // Get the data with d3.
-var res 
-d3.json(url).then(function(response) {
+let res;
+d3.json(url).then((response) => {
+  if (1) {
+    response = response.data;
 
-  if(1){
-    response = response.data
+    response = response.map((d) => {
+      d.latitude += '';
+      d.longitude += '';
 
-    response = response.map(d =>{
-      d.latitude = d.latitude + ''
-      d.longitude = d.longitude + ''
-  
-      return d
-    })
-    res = response
+      return d;
+    });
+    res = response;
   }
-  
-  console.log(response)
+
+  console.log(response);
 
   // Create a new marker cluster group.
-  var markers = L.markerClusterGroup();
+  const markers = L.markerClusterGroup();
 
-  var heatArray = []
+  const heatArray = [];
   // Loop through the data.
-  for (var i = 0; i < response.length; i++) {
-
+  for (let i = 0; i < response.length; i++) {
     // Set the data location property to a variable.
-    var location = [response[i].latitude, response[i].longitude]
-     
+    const location = [response[i].latitude, response[i].longitude];
+
     heatArray.push([location[0], location[1], response[i].price]);
 
     // Add a new marker to the cluster group, and bind a popup.
     markers.addLayer(L.marker([location[0], location[1]])
       .bindPopup(`${response[i].host_name}<br/>$${response[i].price}`));
-     
-
   }
 
-  var heat = L.heatLayer(heatArray, {
+  const heat = L.heatLayer(heatArray, {
     radius: 20,
-    blur: 35
+    blur: 35,
   }).addTo(myMap);
   myMap.addLayer(markers);
-
 });

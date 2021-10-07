@@ -1,61 +1,60 @@
-function dropdownChanged(selectedOption) {
-
-    const data = { 'yesOrNo': selectedOption };
-
-    fetch(`/api/veggies`, {
-        method: 'POST', // or 'PUT'
-        headers: {
-            'Content-Type': 'application/json',
+fetch('/query')
+  .then((res) => res.json())
+  .then((res) => res.data)
+  .then((res) => {
+    const typeCount = {};
+    const cityCount = {};
+    res.forEach((c) => {
+      const type = c.room_type;
+      const { city } = c;
+      if (typeCount[type] === undefined) {
+        typeCount[type] = 0;
+      }
+      if (cityCount[city] === undefined) {
+        cityCount[city] = 0;
+      }
+      cityCount[city] += 1;
+      typeCount[type] += 1;
+    }, {});
+    function plot(id, dict) {
+      const config = {
+        type: 'bar',
+        data: {
+          labels: Object.keys(dict),
+          datasets: [{
+            label: '# of properties',
+            data: Object.values(dict),
+            backgroundColor: [
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(54, 162, 235, 1)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+            ],
+          }],
         },
-        body: JSON.stringify(data),
-    })
-        .then(response => response.json())
-        .then(data => {
-            var optionSelected = parseInt(data[0]['yesOrNo'])
-            var y_data;
-            if (optionSelected == 0) {
-                y_data = [1, 4, 5, 3, 4]
-            }
-            else {
-                y_data = [987, 345, 234, 567, 344]
-            }
-            // BAR CHART
-            var trace1 = {
-                x: ['Feature A', 'Feature B', 'Feature C', 'Feature D', 'Feature E'],
-                y: y_data,
-                marker: {
-                },
-                type: 'bar'
-            };
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      };
+      const ctx = document.getElementById(id).getContext('2d');
+      new Chart(ctx, config);
+    }
+    plot('chart2', typeCount);
+    plot('chart3', cityCount);
 
-            var data = [trace1];
-
-            var layout = {
-                title: 'Least Used Feature'
-            };
-
-            Plotly.newPlot('sampleBarChart', data, layout);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
-
-
-// BAR CHART
-var trace1 = {
-    x: ['Feature A', 'Feature B', 'Feature C', 'Feature D', 'Feature E'],
-    y: [20, 14, 23, 25, 22],
-    marker: {
-    },
-    type: 'bar'
-};
-
-var data = [trace1];
-
-var layout = {
-    title: 'Least Used Feature'
-};
-
-Plotly.newPlot('sampleBarChart', data, layout);
-
+    // plot count of rental by city
+  });
