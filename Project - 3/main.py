@@ -1,11 +1,15 @@
+from logging import Logger
+import logging
 import sqlite3
-from flask import (Flask, render_template, jsonify, redirect, request, g)
+from flask import (Flask, json, render_template, jsonify, redirect, request, g)
 import flask
 from flask_sqlalchemy import SQLAlchemy
-from models import create_classes
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from sqlalchemy.ext.automap import automap_base
+import sqlite3
+import pandas as pd
+import csv
 
 #################################################
 # Flask Setup
@@ -18,30 +22,92 @@ Airbnb_engine = create_engine('sqlite:///Airbnb_Analysis.sqlite')
 session = Session(Airbnb_engine)
 Base = automap_base()
 Base.prepare(Airbnb_engine, reflect=True)
-Airbnb_Analysis = Base.classes.Airbnb_Analysis
-
-
-# DATABASE = 'save_pandas.db'
-# def get_db():
-#     db = getattr(g, '_database', None)
-#     if db is None:
-#         db = g._database = sqlite3.connect(DATABASE)
-#         db.row_factory = sqlite3.Row
-#     return db
-
-
+# Airbnb_Analysis = Base.classes.Airbnb_Analysis
 
 #################################################
-# Database Setup
+# New Code
 #################################################
-# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///save_pandas.Airbnb_Analysis"
+def open_db():
+    conn = sqlite3.connect('data.db')
+    c = conn.cursor()
+    # load the data into a Pandas DataFrame
+    users = pd.read_csv('/Resources/Airbnb.csv')
+    # write the data to a sqlite table
+    users.to_sql('data', conn, if_exists='replace', index = False)
 
-# # Remove tracking modifications
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# db = SQLAlchemy(app)
+@app.route('/getCityPrices')
+def getCitiesPrices():
+    conn = sqlite3.connect('data.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    data = c.execute('''SELECT city, AVG(price) AS total_price FROM data GROUP BY city''').fetchall()
+    conn.close()
+    resp = []
+    app.logger.info(data)
+    for row in data:
+        jsonData = {}
+        jsonData["city"] = row["city"]
+        jsonData["price"] = row["total_price"]
+        resp.append(jsonData)
+    
+    return jsonify(resp)
 
-# AA = create_classes(db)
+
+@app.route('/getRentalTypeCount')
+def getRentalTypeCount():
+    conn = sqlite3.connect('data.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    data = c.execute('''SELECT room_type, COUNT(*) AS count FROM data GROUP BY room_type''').fetchall()
+    conn.close()
+    resp = []
+    app.logger.info(data)
+    for row in data:
+        jsonData = {}
+        jsonData["room_type"] = row["room_type"]
+        jsonData["count"] = row["count"]
+        resp.append(jsonData)
+    return jsonify(resp)
+
+@app.route('/getRentalPropertiesCountByCity')
+def getRentalPropertiesCountByCity():
+    conn = sqlite3.connect('data.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    data = c.execute('''SELECT city, COUNT(*) AS count FROM data GROUP BY city''').fetchall()
+    conn.close()
+    resp = []
+    app.logger.info(data)
+    for row in data:
+        jsonData = {}
+        jsonData["city"] = row["city"]
+        jsonData["count"] = row["count"]
+        resp.append(jsonData)
+    return jsonify(resp)
+
+@app.route('/getRentalPropeties')
+def getRentalPropeties():
+    cityName = request.args.get('cityName',default='Austin',type=str)
+    queryName = 'city'
+    conn = sqlite3.connect('data.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    data = c.execute("SELECT * FROM data WHERE city LIKE 'New York City%' ORDER BY number_of_reviews DESC LIMIT 50").fetchall()
+    conn.close()
+    resp = []
+    app.logger.info(cityName)
+    for row in data:
+        jsonData = {}
+        jsonData["host_name"] = row["host_name"]
+        jsonData["latitude"] = row["latitude"]
+        jsonData["longitude"] = row["longitude"]
+        jsonData["room_type"] = row["room_type"]
+        jsonData["price"] = row["price"]
+        jsonData["availability_365"] = row["availability_365"]
+        jsonData["number_of_reviews"] = row["number_of_reviews"]
+        resp.append(jsonData)
+    return jsonify(resp)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -53,6 +119,7 @@ def home():
     # Find one record of data from the mongo database
     # Result_Dict = results_collection.find_one()
     # Return template and data
+    open_db()
     return render_template('home.html')
 
 
@@ -76,15 +143,6 @@ def dashboard():
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
-
-
-# @app.teardown_appcontext
-# def close_connection(exception):
-#     db = getattr(g, '_database', None)
-#     if db is not None:
-#         db.close()     
-
 @app.route('/maps')
 def maps():
     return render_template('maps.html')
@@ -92,46 +150,8 @@ def maps():
 
 @app.route('/generatemapsdata')
 def generatemapsdata():
-    return jsonify(session.query(Airbnb_Analysis.Host_Name, Airbnb_Analysis.Price, Airbnb_Analysis.City, Airbnb_Analysis.Latitude, Airbnb_Analysis.Longitude).all())
-
-# def price():
-#     db = get_db()
-#     data = db.execute('SELECT price, latitude, longitude FROM Airbnb_Analysis').fetchall()
-    # results = db.session.query(AA.Price, AA.Latitude,AA.Longitude,AA.Host_Name,AA.Room_Type,AA.Neighbourhood,AA.Price_Bins).all()
-
-    # price= [result[5] for result in results]
-    # lat = [result[2] for result in results]
-    # lon = [result[3] for result in results]
-    # name = [result[0] for result in results]
-    # room = [result[4] for result in results]
-    # neighbour = [result[1] for result in results]
-    # bins = [result[12] for result in results]
-    # city = [result[11] for result in results]
-
-
-    # price_data = [{
-    #     "type": "scattergeo",
-    #     "locationmode": "USA-states",
-    #     "lat": lat,
-    #     "lon": lon,
-    #     "price": price,
-    #     "name": name,
-    #     "room_type" : room,
-    #     "neighbourhood": neighbour,
-    #     "bins": bins,
-    #     "city": city,
-    #     "marker": {
-    #         "size": 50,
-    #         "line": {
-    #             "color": "rgb(8,8,8)",
-    #             "width": 1
-    #         },
-    #     }
-    # }]
-
-    # return jsonify(data)
-
-
+    app.logger.log((session.query(Airbnb_Analysis.Host_Name, Airbnb_Analysis.Price, Airbnb_Analysis.City, Airbnb_Analysis.Latitude, Airbnb_Analysis.Longitude).all()),1)
+    return "render_template('maps.html')"
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

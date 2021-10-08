@@ -1,15 +1,24 @@
-{% extends "base.html" %}
-{% set active_page = "Dashboard" %}
-{% block content %}
+{% extends "base.html" %} {% set active_page = "Dashboard" %} {% block content %}
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-
 <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}" />
-<div style='margin-top: 50px; text-align: center;'>
-    <h1>Dashboard</h1>  
+<div style='margin-top: 30px; text-align: center;'>
+    <h1>Dashboard</h1>
+    <!-- <select onchange='dropdownChanged(this.value);'>
+        <option value='1'>Alaska</option>
+        <option value='0'>Alabama</option>
+    </select> -->
+
+    <!-- <div style='margin-top: 30px; text-align: left;'></div>
+    <h2>Total number of Airbnb Properties by State/City </h2>
+    <div style='margin-top: 30px; text-align: center;'></div>
+    <h2>Price of Airbnb Properties by State/City </h2>
+    <div style='margin-top: 30px; text-align: right;'></div>
+    <h2>Availability of Airbnb Properties by State/City </h2>
+    <div style='margin-top: 30px; text-align: left;'></div> -->
+
+    <div id='plotCityByPrice'></div>
+
     <div class="row" style='width:100%;'>
-
-
         <div class="col-md-12">
             <div style='margin-top: 30px; text-align: center;'></div>
             <h2>Airbnb rental properties by rental types and city</h2>
@@ -18,21 +27,14 @@
     <br>
 
     <div class="row">
-        <div class="col-6 border">
+        <div class="col border">
             </br>
-            <div>
-                <h2 class="img-AA">Count of Rental Properties by Rental Type</h2>
-                <br>
-                    <canvas id="chart2" width="100%" height="100%" ></canvas>
-
+            <div id="plotRentalTypeCount">
             </div>
         </div>
-        <div class="col-6 border">
+        <div class="col border">
             </br>
-            <div>
-                <h2 class="img-AA">Count of Rental Properties by City</h2>
-                <br>
-                    <canvas id="chart3" width="100%" height="100%" ></canvas>
+            <div id="getRentalPropertiesCountByCity">
             </div>
         </div>
     </div>

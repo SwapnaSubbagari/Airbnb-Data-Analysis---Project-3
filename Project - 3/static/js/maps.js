@@ -1,92 +1,120 @@
 
-// An array that contains all the information needed to create city and state markers
 
 // Define arrays to hold the created city and state markers.
-var cityMarkers = [];
+var reviewMarkers = [];
 var priceMarkers = [];
+var availMarkers = [];
 var locations = [];
 var latitude = [];
 var longitude = [];
 var marker_info = [];
 var coordinates = [];
 
-fetch('/generatemapsdata')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)});
+$(document).ready(function() {
 
-        for (var i = 0; i < data.length; i++) {
-            var Room_Details = Room_Info[i];
-            latitude = Room_Details[i].Latitude
-            longitude = Room_Details[i].Longitude
-            coordinates = [latitude,longitude]
-
-        // Setting the marker radius for the state by passing population into the markerSize function
-            priceMarkers.push(
-                L.circle(coordinates, {
-                    stroke: false,
-                    fillOpacity: 0.75,
-                    color: "white",
-                    fillColor: "white",
-                    radius: markerSize(Room_Details[i].Price)
-                })
-            );
-
-            // Set the marker radius for the city by passing the population to the markerSize() function.
-            cityMarkers.push(
-                L.circle(coordinates, {
-                    stroke: false,
-                    fillOpacity: 0.75,
-                    color: "purple",
-                    fillColor: "purple",
-                    radius: markerSize(Room_Details[i].City)
-                })
-            );
-            
+    // Main Graph ( City By Prices)
+    $.ajax({
+        type: "GET",
+        url: "/getRentalPropeties",
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            plotMap(response);
+        },
+        error: function(error) {
+            console.error("Error : " + error);
         }
-
-        // Create the base layers.
-        var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        })
-
-        var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-        });
-
-        // Create two separate layer groups: one for the city markers and another for the state markers.
-        var price = L.layerGroup(priceMarkers);
-        var cities = L.layerGroup(cityMarkers);
-
-        // Create a baseMaps object.
-        var baseMaps = {
-            "Street Map": street,
-            "Topographic Map": topo
-        };
-
-        // Create an overlay object.
-        var overlayMaps = {
-            "Price": price,
-            "City": cities
-        };
-
-        // Define a map object.
-        var myMap = L.map("map-id", {
-            center: [37.09, -95.71],
-            zoom: 5,
-            layers: [street, price, cities]
-        });
-
-        // Pass our map layers to our layer control.
-        // Add the layer control to the map.
-        L.control.layers(baseMaps, overlayMaps, {
-            collapsed: false
-        }).addTo(myMap);
-
     });
 
 
+});
 
+
+function plotMap(data) {
+
+    for (var i = 0; i < data.length; i++) {
+        latitude = data[i]['latitude'];
+        longitude = data[i]['longitude'];
+        coordinates = [latitude, longitude]
+
+        // Setting the marker radius for the state by passing population into the markerSize function
+        priceMarkers.push(
+            L.circle(coordinates, {
+                stroke: false,
+                fillOpacity: 0.75,
+                color: "black",
+                fillColor: "black",
+                radius: markerSize(data[i]['price'])
+            })
+        );
+
+        // Set the marker radius for the city by passing the population to the markerSize() function.
+        reviewMarkers.push(
+            L.circle(coordinates, {
+                stroke: false,
+                fillOpacity: 0.75,
+                color: "purple",
+                fillColor: "purple",
+                radius: markerSize(data[i]['number_of_reviews'])
+            })
+        );
+        
+        availMarkers.push(
+            L.circle(coordinates, {
+                stroke: false,
+                fillOpacity: 0.75,
+                color: "green",
+                fillColor: "green",
+                radius: markerSize(data[i]['availability_365'])
+            })
+        );
+
+    }
+
+    // Create the base layers.
+    var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    })
+
+    var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    });
+
+    // Create two separate layer groups: one for the city markers and another for the state markers.
+    var price = L.layerGroup(priceMarkers);
+    var reviews = L.layerGroup(reviewMarkers);
+    var availability = L.layerGroup(availMarkers);
+
+    // Create a baseMaps object.
+    var baseMaps = {
+        "Street Map": street,
+        "Topographic Map": topo
+    };
+
+    // Create an overlay object.
+    var overlayMaps = {
+        "Price": price,
+        "Reviews": reviews,
+        "Availability":availability
+    };
+
+    // Define a map object.
+    var myMap = L.map("map-id", {
+        center: [40.71, -74.00],
+        zoom: 10,
+        layers: [street, price, reviews, availability]
+    });
+
+    // Pass our map layers to our layer control.
+    // Add the layer control to the map.
+    L.control.layers(baseMaps, overlayMaps, {
+        collapsed: false
+    }).addTo(myMap);
+
+    function markerSize(data) {
+        return Math.sqrt(data) * 40;
+    }
+}
 
 
 

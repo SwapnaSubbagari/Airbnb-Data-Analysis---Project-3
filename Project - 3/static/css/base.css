@@ -1,32 +1,33 @@
 body {
-  padding-top: 5rem;
+    padding-top: 5rem;
+    background-color: #fff;
 }
 
 h1 {
-  color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 h2 {
-  color: #eee;
+    color: rgb(0, 0, 0);
 }
 
 h3 {
-  color: #ddd;
+    color: rgb(0, 0, 0);
 }
 
 h4 {
-  color: #ccc;
+    color: rgb(0, 0, 0);
 }
 
 h5 {
-  color: #bbb;
+    color: rgb(0, 0, 0);
 }
 
 h6 {
-  color: #aaa;
+    color: rgb(0, 0, 0);
 }
 
 p {
-  color: #fff;
-  font-size: 20px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
 }

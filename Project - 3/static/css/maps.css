@@ -1,14 +1,14 @@
-html, body {
+html,
+body {
     height: 100%;
     padding: 0;
     margin: 0;
 }
 
 
-#map {
-    top:50px;
-    width: 100%;
-    height: calc(100vh - 65px);
+#map-id {
+    width: 1800px;
+    height: 800px;
     padding: 0;
     margin: 0;
 }
