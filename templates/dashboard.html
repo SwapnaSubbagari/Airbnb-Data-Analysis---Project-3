@@ -1,10 +1,12 @@
 {% extends "base.html" %} {% set active_page = "Dashboard" %} {% block content %}
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
 <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard.css')}}" />
 <div style='margin-top: 30px; text-align: center;'>
     <h1><u>Rental Properties by City</u></h1>
     <div class="container">
-        <p style="font-weight: 400; font-size: 8sp;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio officiis praesentium voluptate veritatis, reiciendis alias repudiandae neque, eum itaque dolor laboriosam et dolorum amet? Necessitatibus consequatur eaque excepturi nisi provident!</p>
+        <p style="font-weight: 400; font-size: 8sp;"> </p>
     </div>
     
 
@@ -15,7 +17,7 @@
             <div style='margin-top: 30px; text-align: center;'></div>
             <h2><u>Airbnb rental properties by rental types and city</u></h2>
             <div class="container">
-                <p style="font-weight: 400; font-size: 8sp;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio officiis praesentium voluptate veritatis, reiciendis alias repudiandae neque, eum itaque dolor laboriosam et dolorum amet? Necessitatibus consequatur eaque excepturi
+                <p style="font-weight: 400; font-size: 8sp;"> 
                     nisi provident!</p>
             </div>
         </div>
@@ -31,6 +33,19 @@
         <div class="col border">
             </br>
             <div id="getRentalPropertiesCountByCity">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col border">
+            </br>
+            <div id="chart4">
+            </div>
+        </div>
+        <div class="col border">
+            </br>
+            <div id="chart5">
             </div>
         </div>
     </div>

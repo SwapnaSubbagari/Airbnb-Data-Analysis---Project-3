@@ -110,7 +110,7 @@ def getRentalPropeties():
     conn = sqlite3.connect('data.db')
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
-    data = c.execute("SELECT * FROM data WHERE city= ? ORDER BY number_of_reviews DESC LIMIT 50",(cityName,)).fetchall()
+    data = c.execute("SELECT * FROM data WHERE city= ? ORDER BY number_of_reviews DESC LIMIT 200",(cityName,)).fetchall()
     conn.close()
     resp = []
     app.logger.info(cityName)
