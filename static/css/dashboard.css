@@ -1,0 +1,31 @@
+id {
+    background-color: aliceblue;
+
+
+}
+body {
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+
+#map,
+body,
+html {
+    background-color: white;
+    height: 100%;
+}
+
+h1 {
+    text-emphasis-color: rgba(0, 0, 0, 0.863);
+    text-align: center;
+}
+
+.row  img img-AA{
+	background: #f3f6fa;
+	width: 50%;
+	padding-top: 4px;
+	margin: auto;
+	border-radius: 15px 15px 0px 0px;
+	margin-top: 17px;
+}

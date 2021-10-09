@@ -1,47 +1,21 @@
-# Airbnb Preferences in Major Cities
+# Google Cloud App Engine Website
+## Website Template Built Using Python's Flask
 
-## Teammates 
-#### [Yawavi Koudjonou]( https://github.com/yawavi92)
-#### [Ling Lu](https://github.com/LingLv-git)
-#### [Raheem Paxton](https://github.com/rjpaxtondata)
-#### [Swapna Subbagari]( https://github.com/SwapnaSubbagari)
-<br>
+### Instructions
 
-## Background 
-Since its inception in 2008, Airbnb has disrupted the travel industry. Today tourists have begun to prefer accommodations that resemble their own home (e.g., multiple bedrooms, stove, grill, and private parking). In most cases, these locations are preferred over that of a traditional hotel.
+1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
 
-## Purpose and Proposed Visualization Strategies<br>
+2. Create a new project in the [Google Cloud Console](https://console.cloud.google.com/). When it asks you for a Project Name, please remember that the name of your project will be listed in your new website's default URL. For example, a GCloud project name of `flask-boilerplate-website` will result in a URL of [https://flask-boilerplate-website.uc.r.appspot.com](https://flask-boilerplate-website.uc.r.appspot.com). Optionally, you can always purchase a new domain name, such as flask-boilerplate-website.com, and then mirror your site to the professional URL.
 
-The purpose of this project was to tell a story of Airbnb accommodations using data visualizations. Here, we propose to use visualizations to graphically display different filters based on price points, cities, and room types. In addition, we propose to use both choropleth and cluster graphing strategies to display bookings that may differ by price points, cities, and room type. <br>
+3. After your project has finished being created (it may take a minute or two), select your new project.
 
-Overall, these data allow potential travelers to identify high-value locations at the right price point.
+4. Next, download this entire repository to your machine as a ZIP file. Open the Flask_Boilerplate_Website_Template directory in your terminal (or in GitBash if on Windows). With that folder open, run `gcloud init`, and when it prompts your for which project to select, type the number that corresponds to your new project name. Running `gcloud init` is a one-time step, so that your computer knows that the directory that you're in can be pushed to GCloud.
 
-## Data Extraction<br>
-The Airbnb data were downloaded from [kaggle]( https://www.kaggle.com/kritikseth/us-airbnb-open-data). These data were compiled by [Kritik Seth]( https://github.com/kritikseth), an inspiring data scientist from Mumbai, India. The data was compiled from multiple Airbnb datasets in October of 2020. We downloaded it as CSV data file and converted it into a JSON format. <br>
+5. Now that you've initalized your directory, run `gcloud app deploy`. Usually this is a super simple command, but this first time you run this command to deploy to a live website, it'll ask you which location you'd like to deploy to. I usually use `us-central` (option number 17), because it will result in moderate speeds for anyone in the United States. If most of your users are in New York or California, then you may want to choose a more appropriate location to host your site, such as Eatsern or Western hosting zones. After selecting the locatio , then type `Y` when it asks you Y or n. After typing `Y`, if it gives you an error, then simply run `gcloud app deploy` again. Let it run for a few minutes, and then you should see a success message with the URL of your newly deployed website.
 
-## Program Utilized
-For the proposed project, we will be using the following software: Python, HTML, Javascript, CSS, Plotly, Leaflet, D3, and Postgres
+6. You're done deploying! However, to update your website after you've made changes to your code, simply run `gcloud app deploy` again, followed by a `Y` :)
 
-## Dataset Variables<br>
 
-The dataset consist of the following variables. 
+### Notes
 
-  *id: Unique Listing ID<br>
-  *name: Name of Listing<br>
-  *host_id: Unique host ID<br>
-  *host_name: Name of host<br>
-  *neighborhood_group: Group in which the neighborhood lies<br>
-  *neighborhood: name of neighborhood<br>
-  *latitude: Latitude of listing<br>
-  *longitude: Longitude of listing<br>
-  *room_type: room type<br>
-  *price: price of listing per night<br>
-  *minimum_nights: Minimum number of nights required to book<br>
-  *number_of_reviews: Total number of reviews on listing<br>
-  *last_review: Date on which listing received its last review<br>
-  *reviews_per_month: Average reviews pr month on listing<br>
-  *calculated_host_listings_count: Total number of listings by host<br>
-<br>
-##Data Manipulation <br>
-## Website with Visualization <br>
-##Characterization of visualization <br>
+* You will most likely want to use additional Python libraries to build your website. For example, you may want to import pandas or import sqlalchemy, in which case, you'll need to add those libraries to the `requirements.txt` file. To view the version numbers of each of the python libraries that are installed on your machine, simply open your terminal/gitbash and type the command `pip list`. This shows all downloaded libraries, so you'll need to copy/paste into the `requirements.txt` only the libraries needed to run your website.
