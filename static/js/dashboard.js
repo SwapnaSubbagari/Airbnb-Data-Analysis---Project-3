@@ -71,7 +71,6 @@ function plotCityByPrice(data) {
   };
   var data = [trace1, trace2];
   const layout = {
-    title: 'Price by City',
     barMode: 'group',
     xaxis: {
       title: 'Cities',
@@ -192,3 +191,72 @@ function getRentalPropertiesCountByCity(data) {
   };
   Plotly.newPlot('getRentalPropertiesCountByCity', data, layout);
 }
+
+fetch('/getDataByRegion').then((res) => res.json())
+  .then((res) => {
+    console.log(1, res);
+    const COLORS = [
+      { backgroundColor: 'rgba(54, 162, 235, 1)', borderColor: 'rgba(255, 99, 132, 1)' },
+      { backgroundColor: 'rgba(255, 99, 132, 1)', borderColor: 'rgba(255, 99, 132, 1)' },
+      { backgroundColor: 'rgba(255, 206, 86, 1)', borderColor: 'rgba(255, 99, 132, 1)' },
+
+    ];
+    function getColors(index, type, number) {
+      const color = COLORS[index] || COLORS[0];
+      const r = [];
+      for (let i = 0; i < number; i++) {
+        r.push(color[type]);
+      }
+      return r;
+    }
+    function plot(id, list, labels = [], stack = undefined) {
+      if (!(list instanceof Array)) {
+        list = [list];
+      }
+      const config = {
+        type: 'bar',
+        data: {
+          labels: Object.keys(list[0]),
+          datasets: list.map((dict, i) => ({
+            label: labels[i],
+            data: Object.values(dict),
+            backgroundColor: getColors(i, 'backgroundColor', Object.values(dict).length),
+            borderColor: getColors(i, 'borderColor', Object.values(dict).length),
+          }))
+          ,
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              stacked: stack,
+
+            },
+            x: {
+              stacked: stack,
+            },
+
+          },
+        },
+      };
+      const ctx = document.getElementById(id).getContext('2d');
+      new Chart(ctx, config);
+    }
+    // plot('chart2', [typeCount], ['# of properties']);
+    // plot('chart3', [cityCount], ['# of properties']);
+
+    plot('chart4', [{
+      east: res.count.east,
+      west: res.count.west,
+      other: res.count.other,
+    }], ['# of properties']);
+    const dPrice = { east: res.price.east, west: res.price.west, other: res.price.other };
+    const d = {};
+    Object.entries(dPrice).forEach(([region, regionData]) => {
+      d[region] = {};
+      for (const roomType in regionData) {
+        d[region][roomType] = regionData[roomType].total / regionData[roomType].cnt;
+      }
+    });
+    plot('chart5', Object.values(d), Object.keys(d));
+  });

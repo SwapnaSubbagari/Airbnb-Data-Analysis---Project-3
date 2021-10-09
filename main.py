@@ -186,6 +186,72 @@ def veggies():
 def page_not_found(error):
     return render_template('404.html'), 404
 
+ 
+engine = create_engine("sqlite:///data.db")
+count_by_region = {
+            'east': 0,
+            'west': 0,
+            'other': 0
+        }
+price_by_region = {
+            'east': {},
+            'west': {},
+            'other': {}
+        }        
+def preProcess():
+    results = []
+    columns = []
+    with engine.connect() as con:
+        
+        rs = con.execute('select * from data')
+        # rs = con.execute('select * from Airbnb_Analysis ')
+        for col in rs.keys():
+            columns.append(col)      
+        for row in rs:
+            d = dict(zip(columns, row))
+            region = 'other'
+            if d['longitude'] < -109 and d['longitude'] > -127:
+                region = 'west'
+                count_by_region[region] += 1
+            elif (d['longitude'] > -84 and d['longitude'] < -61) :
+                region = 'east'
+                count_by_region[region] += 1
+            else:
+                count_by_region[region] += 1
+
+
+            dic_region = price_by_region[region]
+            room_type = d['room_type']
+            if dic_region.get(room_type) is None:
+                dic_region[room_type] = { 'total': 0, 'cnt': 0 }
+            room_data = dic_region[room_type]
+            room_data['cnt'] += 1
+            room_data['total'] += d['price']
+            
+            '''
+  const avgPriceByRegion = [EAST, WEST, OTHER].reduce((a, region) => {
+      const regionData = {};
+      roomTypes.forEach((roomType) => {
+        const d = rd[region].filter((e) => e.room_type === roomType);
+        regionData[roomType] = d.reduce((total, d1) => total + d1.price, 0) / d.length;
+      });
+      a[region] = regionData;
+      return a;
+    }, {});
+
+
+        '''    
+    return
+preProcess()
+@app.route('/getDataByRegion')
+def getDataByRegion():
+    
+    return jsonify({
+        'count': count_by_region,
+        'price': price_by_region
+    })
+
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
