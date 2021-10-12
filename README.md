@@ -35,21 +35,35 @@ The Airbnb data were downloaded from [kaggle](https://www.kaggle.com/kritikseth/
 
 The original datasets were such a large. it was over 34 KB. After cleaning we have little more than 10 KB. Varaibles such as Id, name, host_id and some states are not longer available in our dataset.
 
-*id: Unique Listing ID
-*name: Name of Listing
-*host_id: Unique host ID
-*host_name: Name of host
-*neighborhood_group: Group in which the neighborhood lies
-*neighborhood: name of neighborhood
-*latitude: Latitude of listing
-*longitude: Longitude of listing
-*room_type: room type
-*price: price of listing per night
-*minimum_nights: Minimum number of nights required to book
-*number_of_reviews: Total number of reviews on listing
-*last_review: Date on which listing received its last review
-*reviews_per_month: Average reviews pr month on listing
-\*calculated_host_listings_count: Total number of listings by host
+* id: Unique Listing ID
+
+* name: Name of Listing
+
+* host_id: Unique host ID
+
+* host_name: Name of host
+
+* neighborhood_group: Group in which the neighborhood lies
+
+* neighborhood: name of neighborhood
+
+* latitude: Latitude of listing
+
+* longitude: Longitude of listing
+
+* room_type: room type
+
+* price: price of listing per night
+
+* minimum_nights: Minimum number of nights required to book
+
+* number_of_reviews: Total number of reviews on listing
+
+* last_review: Date on which listing received its last review
+
+* reviews_per_month: Average reviews pr month on listing
+
+* calculated_host_listings_count: Total number of listings by host
 
 ## ETL process
 
@@ -100,3 +114,7 @@ those shows two maps display the count or frequency of rental properties by regi
 #### [Raheem Paxton](https://github.com/rjpaxtondata)
 
 #### [Swapna Subbagari](https://github.com/SwapnaSubbagari)
+
+## Heroku App
+
+The app can be viewed [here](https://airbnb-analysis-app.herokuapp.com/).
