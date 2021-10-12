@@ -5,17 +5,29 @@
 ## Contents
 
 1-Background
+
 2-Purpose and Proposed Visualization Strategies
+
 3-Data Source
+
 4-Dataset and Variables
+
 5-ETL process
+
 6-Technologies used in the project
+
 7-Website with Visualization
+
 8-home
+
 9-Dashboard
+
 10- Maps
+
 11-Chart
+
 12-About
+
 
 ## Background
 
@@ -103,7 +115,8 @@ The heatmap has street and topographic layers with price, reviews and avalaibili
 
 ![image](https://user-images.githubusercontent.com/82011523/137035287-0b2cc2b2-12ba-4945-89af-8da493abdb3c.png)
 
-![image](https://user-images.githubusercontent.com/82011523/137035486-750434a7-e33a-4e78-85e9-4cedef8c769e.png)
+![image](https://user-images.githubusercontent.com/82011523/137035801-e19eb78a-0642-4d3d-a302-e57003e68f04.png)
+
 
 ## chart
 
