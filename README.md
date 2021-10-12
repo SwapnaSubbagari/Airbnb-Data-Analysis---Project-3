@@ -79,7 +79,7 @@ The original datasets were such a large. it was over 34 KB. After cleaning we ha
 
 ## ETL process
 
-With jupyter notbook, clean our data.our final data had over 218, 000 unique rows and 17columns. we start by dropping id,name, host_id,neighbourhood_group, last_review and any duplcate latitude and longitude we can have. our final dataset contained 12 columns and 165,733 rows. Based on our interest, we decided to move on with only the top 14 cities and the top 150 records of our primary dataset. we calculted average and median of price availability and number of review in new dataframe. then some plot to show the number and the type (hotel room, shared room, private room, entire home/apt) of airbnb rental place in each city. we did bins for price also. Once finish cleaning, we were able to load the dataset to SQLite for Exploratory Analysis.
+With jupyter notbook, clean our data.our final data had over 218, 000 unique rows and 17columns. we start by dropping id,name, host_id,neighbourhood_group, last_review and any duplcate latitude and longitude we can have. our final dataset contained 12 columns and 165,733 rows. Based on our interest, we decided to move on with only the top 14 cities and the top 150 records of our primary dataset. we calculted average and median of price availability and number of review in new dataframe. then some plot to show the number and the type (hotel room, shared room, private room, entire home/apt) of airbnb rental place in each city. We did bins for price also. Once finish cleaning, we were able to load the dataset to SQLite for Exploratory Analysis.
 
 ## Technologies used in the project
 
@@ -103,25 +103,21 @@ The page display the project name and the team memebers names with picture of th
 
 ![image](https://user-images.githubusercontent.com/82011523/137035076-e3959fb7-b949-4301-b620-2600c915f0d2.png)
 
-The plot in the page shows the number of rental propeties based on type (shared room, private room, hotel room, entire home/apt). We can aslo see the number of properties by cities. the top 3 of cities with more properties is New York City, Los Angeles, Hawaii and the entire home/apt is far the most properties proposed on airbnb in those cities. And the plot of the average price of private room and entire home/apt.
+The plot in the page shows the number of rental propeties based on type (shared room, private room, hotel room, entire home/apt). We can aslo see the number of properties by cities. The top 3 of cities with more properties is New York City, Los Angeles, Hawaii and the entire home/apt is far the most properties proposed on airbnb in those cities. And the plot of the average price of private room and entire home/apt.
 ![image](https://user-images.githubusercontent.com/82011523/137035123-ed06baf0-ce62-4351-a50d-c980eddda5f6.png)
 
-
+![image](https://user-images.githubusercontent.com/82011523/137035157-36923430-0897-4655-8a4d-c9ead300ab38.png)
 
 
 ## Maps
 
-The heatmap has street and topographic layers with price, reviews and avalaibility markers and dropdown button that allows to navigate through the top 5 cities. For example, if you zoom in on each city, there is a heatmap by price, reviews, and availability.Zoom in a little more and there is a cluster number of properties in the area. Also if you mouse over the property, you can see more detailed information about the property.
+The heatmap has street and topographic layers with price, reviews and avalaibility markers and dropdown button that allows to navigate through the top 5 cities. For example, if you zoom in on each city, there is a heatmap by price, reviews, and availability. Zoom in a little more and there is a cluster number of properties in the area. Also if you mouse over the property, you can see more detailed information about the property.
 
 ![image](https://user-images.githubusercontent.com/82011523/137035287-0b2cc2b2-12ba-4945-89af-8da493abdb3c.png)
 
 ![image](https://user-images.githubusercontent.com/82011523/137035801-e19eb78a-0642-4d3d-a302-e57003e68f04.png)
 
-
-## chart
-
-those shows two maps display the count or frequency of rental properties by region and the average of price based on type of room by region.
-![image](https://user-images.githubusercontent.com/82011523/137035157-36923430-0897-4655-8a4d-c9ead300ab38.png)
+Those shows two maps display the count or frequency of rental properties by region and the average of price based on type of room by region.
 
 ## About
 
