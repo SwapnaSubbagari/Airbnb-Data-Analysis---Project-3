@@ -1,6 +1,6 @@
 # Airbnb Preferences in Major Cities
 
-![Airbnb](static/images/Trivago-Adds-HomeAway-Vacation-Rentals-.jpg.PNG
+![image](https://user-images.githubusercontent.com/82011523/137035362-76c65b5b-b07c-4ec0-8283-dcbc19a9e584.png)
 
 ## Contents
 
@@ -72,10 +72,11 @@ With jupyter notbook, clean our data.our final data had over 218, 000 unique row
 ## Technologies used in the project
 
 For the proposed project, we will be using the following software:
-*libraries : D3, Plotly, Leaflet, pandas, chart.js, Jquery.js
-*Deployment : Heroku, Flask
-\*Database : sqlite
-\*Languages : Python, Javascript, HTML, CSS \* jupyter notebook
+
+* libraries : Plotly, Leaflet, pandas, Chart.js, jQuery
+* Deployment : Heroku, Flask
+* Database : sqlite
+* Languages : Python, Javascript, HTML, CSS 
 
 ## Website with Visualization
 
@@ -84,28 +85,34 @@ we use flask to set the routes and heroku to deploy our website. Each Icon : Hom
 ## home
 
 The page display the project name and the team memebers names with picture of the beach in the background.
-![home](static/images/IMG_1612.jpeg)
+![image](https://user-images.githubusercontent.com/82011523/137034956-69de1ab8-8571-4819-9b1e-2b289f25812f.png)
 
 ## Dashboard
 
-![dash](static/images/dash.PNG)
+![image](https://user-images.githubusercontent.com/82011523/137035076-e3959fb7-b949-4301-b620-2600c915f0d2.png)
+
 The plot in the page shows the number of rental propeties based on type (shared room, private room, hotel room, entire home/apt). We can aslo see the number of properties by cities. the top 3 of cities with more properties is New York City, Los Angeles, Hawaii and the entire home/apt is far the most properties proposed on airbnb in those cities. And the plot of the average price of private room and entire home/apt.
-![dashb](static/images/dashb.PNG)
+![image](https://user-images.githubusercontent.com/82011523/137035123-ed06baf0-ce62-4351-a50d-c980eddda5f6.png)
+
+
+
 
 ## Maps
 
 The heatmap has street and topographic layers with price, reviews and avalaibility markers and dropdown button that allows to navigate through the top 5 cities. For example, if you zoom in on each city, there is a heatmap by price, reviews, and availability.Zoom in a little more and there is a cluster number of properties in the area. Also if you mouse over the property, you can see more detailed information about the property.
 
-![heatmap](static/images/heatmap.PNG)
+![image](https://user-images.githubusercontent.com/82011523/137035287-0b2cc2b2-12ba-4945-89af-8da493abdb3c.png)
+
+![image](https://user-images.githubusercontent.com/82011523/137035486-750434a7-e33a-4e78-85e9-4cedef8c769e.png)
 
 ## chart
 
 those shows two maps display the count or frequency of rental properties by region and the average of price based on type of room by region.
-![charto](static/images/Chart2.PNG)
+![image](https://user-images.githubusercontent.com/82011523/137035157-36923430-0897-4655-8a4d-c9ead300ab38.png)
 
 ## About
 
-![about](static/images/about.PNG)
+![image](https://user-images.githubusercontent.com/82011523/137035562-d0c25c85-66bf-4c45-a742-256d54678ec9.png)
 
 #### [Yawavi Koudjonou](https://github.com/yawavi92)
 
